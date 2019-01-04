@@ -1,18 +1,25 @@
 const path = require('path');
 const HWP = require('html-webpack-plugin');
 const appDIR = path.join(__dirname,'client/my-app/source/index.js');
+const webpack = require('webpack');
 // import css from 'file.css';
 console.log(typeof appDIR);
 
 
 
 module.exports = {
-    entry: appDIR,
+    entry: [appDIR, 'webpack-hot-middleware/client'],
     output: {
                 filename: 'build.js',
                 path: path.join(__dirname,'/client/my-app/dist')
             },
-    plugins : [new HWP()],        
+    plugins: [
+                // OccurrenceOrderPlugin is needed for webpack 1.x only
+                    new webpack.optimize.OccurrenceOrderPlugin(),
+                    new webpack.HotModuleReplacementPlugin(),
+                // Use NoErrorsPlugin for webpack 1.x
+                    new webpack.NoEmitOnErrorsPlugin()
+    ],                
     module : {
             rules : [
                         {
