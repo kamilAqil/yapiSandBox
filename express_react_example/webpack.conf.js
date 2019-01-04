@@ -11,8 +11,7 @@ module.exports = {
     output: {
                 filename: 'build.js',
                 path: path.join(__dirname,'/client/my-app/dist')
-            },
-    plugins : [new HWP()],        
+            },        
     module : {
             rules : [
                         {
