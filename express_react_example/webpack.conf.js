@@ -12,10 +12,11 @@ module.exports = {
                 filename: 'build.js',
                 path: path.join(__dirname,'/client/my-app/dist')
             },
+    plugins : [new HWP()],        
     module : {
             rules : [
                         {
-                            test: /\.jsx?|.js$/,
+                            test: /\.jsx$|.js$/,
                             exclude: /node_modules/,
                             use: {
                                 loader:"babel-loader"
@@ -29,7 +30,17 @@ module.exports = {
                         {
                             test: /\.svg$/,
                             loader: 'svg-inline-loader'
-                        }
+                        },
+                        {
+                            test: /\.(html)$/,
+                            exclude: /node_modules/,
+                            use: {
+                              loader: 'html-loader',
+                              options: {
+                                attrs: [':data-src']
+                              }
+                            }
+                          }
                        
                     ]
         }
