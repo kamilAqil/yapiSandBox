@@ -6,17 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
+    "start:dev": "webpack-dev-server",
     "build": "webpack --config webpack.conf.js"
   },
   "author": "kamilo_san",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "nodemon": "^1.18.9",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "webpack-dev-server": "^3.1.14"
+    "react-dom": "^16.7.0"
   },
   "devDependencies": {
     "@babel/core": "^*",
@@ -32,6 +34,8 @@
     "svg-inline-loader": "^0.8.0",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.1.2",
+    "webpack-dev-middleware": "^3.5.0",
+    "webpack-dev-server": "^3.1.14",
     "webpack-hot-middleware": "^2.24.3"
   }
 }

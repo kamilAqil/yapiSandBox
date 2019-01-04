@@ -4,9 +4,33 @@ const env = require('dotenv').config();
 const path = require('path');
 const port = process.env.PORT;
 const result = env;
+const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
-const webpackConfig = require('./webpack.conf.js');
-const compiler = webpack(webpackConfig);
+const compiler = webpack(require('./webpack.conf'));
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+function createWebpackDevMiddleware() {
+  return webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: compiler.publicPath,
+    silent: true,
+    stats: 'errors-only',
+  });
+}
+
+
+  
+  
+
+  // 
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(cookieParser());
+
+
+
+
+
 
 // Create a new JavaScript Date object based on the timestamp
 // multiplied by 1000 so that the argument is in milliseconds, not seconds.
@@ -27,11 +51,11 @@ if (result.error) {
 
 
 
-app.use(require("webpack-dev-middleware")(compiler, {
-  noInfo: true, publicPath: path.join(__dirname,'./client/my-app/dist/index.html')
-}));
+// app.use(require("webpack-dev-middleware")(compiler, {
+//   noInfo: true, publicPath: path.join(__dirname,'./client/my-app/dist')
+// }));
 
-app.use(require("webpack-hot-middleware")(compiler));
+
 
 // server the static files from react build 
 app.use(express.static(path.join(__dirname,'/client/my-app/dist')));

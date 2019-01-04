@@ -8,17 +8,19 @@ console.log(typeof appDIR);
 
 
 module.exports = {
+    mode: 'development',
     entry: [appDIR, 'webpack-hot-middleware/client'],
     output: {
                 filename: 'build.js',
                 path: path.join(__dirname,'/client/my-app/dist')
             },
+    devtool : 'inline-source-map',
+    devServer : {
+        contentBase: './client/my-app/dist',
+        hot:true
+    },        
     plugins: [
-                // OccurrenceOrderPlugin is needed for webpack 1.x only
-                    new webpack.optimize.OccurrenceOrderPlugin(),
-                    new webpack.HotModuleReplacementPlugin(),
-                // Use NoErrorsPlugin for webpack 1.x
-                    new webpack.NoEmitOnErrorsPlugin()
+                
     ],                
     module : {
             rules : [
