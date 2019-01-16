@@ -4,10 +4,15 @@ const appDIR = path.join(__dirname,'client/my-app/source/index.js');
 const webpack = require('webpack');
 // import css from 'file.css';
 console.log(typeof appDIR);
-
+console.log(appDIR);
 
 
 module.exports = {
+    devServer: {
+        contentBase: path.join(__dirname, 'client/dist/index.html'),
+        compress: true,
+        port: 9000
+    },
     entry: [appDIR, 'webpack-hot-middleware/client'],
     output: {
                 filename: 'build.js',

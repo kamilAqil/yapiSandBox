@@ -1,12 +1,14 @@
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.conf.js');
+const webpackMiddleware = require('webpack-dev-middleware');
+const compiler = webpack(webpackConfig);
 const express = require('express');
 const app = express();
 const env = require('dotenv').config();
 const path = require('path');
 const port = process.env.PORT;
 const result = env;
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.conf.js');
-const compiler = webpack(webpackConfig);
+
 
 // Create a new JavaScript Date object based on the timestamp
 // multiplied by 1000 so that the argument is in milliseconds, not seconds.
@@ -27,19 +29,23 @@ if (result.error) {
 
 
 
-app.use(require("webpack-dev-middleware")(compiler, {
-  noInfo: true, publicPath: path.join(__dirname,'./client/my-app/dist/index.html')
+app.use(webpackMiddleware(compiler, {
+  noInfo: false, 
+  publicPath: path.join(__dirname,'./client/my-app/dist/index.html')
 }));
 
-app.use(require("webpack-hot-middleware")(compiler));
+
 
 // server the static files from react build 
 app.use(express.static(path.join(__dirname,'/client/my-app/dist')));
+
 
 // create a GET route
 app.get('/express_backend', (req, res) => {
     res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
   });  
+
+
 
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
