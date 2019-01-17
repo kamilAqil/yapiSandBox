@@ -1,14 +1,9 @@
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.conf.js');
-const webpackMiddleware = require('webpack-dev-middleware');
-const compiler = webpack(webpackConfig);
 const express = require('express');
 const app = express();
 const env = require('dotenv').config();
 const path = require('path');
 const port = process.env.PORT;
 const result = env;
-
 
 // Create a new JavaScript Date object based on the timestamp
 // multiplied by 1000 so that the argument is in milliseconds, not seconds.
@@ -26,13 +21,6 @@ let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 if (result.error) {
   throw result.error
 }
-
-
-
-app.use(webpackMiddleware(compiler, {
-  noInfo: false, 
-  publicPath: path.join(__dirname,'./client/my-app/dist/index.html')
-}));
 
 
 
@@ -57,4 +45,3 @@ app.get('*', (req,res) =>{
 
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port} and restarted at time ${formattedTime}`));
-
